@@ -34,7 +34,7 @@ function pressKey(key) {
   } else if (evaluated && $.isNumeric(key)) {
     keyStack = [key];
   } else if (key === '=') {
-    evaluateExpression2();
+    evaluateExpression();
   } else if (keyStack.length || key !== '0') {
     keyStack.push(key);
   }
