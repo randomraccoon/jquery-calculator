@@ -24,12 +24,14 @@ $(document).ready(function() {
 function pressKey(key) {
   key = sanitizeInput(key);
   if (key.length !== 1) return;
-  if (isNaN(key) && (!keyStack.length || isNaN(keyStack[keyStack.length - 1]))) {
+  if (!$.isNumeric(key)
+    && (!keyStack.length || !$.isNumeric(keyStack[keyStack.length - 1]))
+  ) {
     error = true;
   }
   if (key === 'c') {
     keyStack = [];
-  } else if (evaluated && !isNaN(key)) {
+  } else if (evaluated && $.isNumeric(key)) {
     keyStack = [key];
   } else if (key === '=') {
     evaluateExpression2();
@@ -55,7 +57,7 @@ function sanitizeInput(key) {
 function displayScreen() {
   if (!keyStack.length) {
     error = false;
-  } else if (keyStack[0] === Infinity || isNaN(keyStack[0])) {
+  } else if (!$.isNumeric(keyStack[0])) {
     error = true;
   }
 
